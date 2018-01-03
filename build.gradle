@@ -1,0 +1,27 @@
+allprojects {
+    apply plugin: 'eclipse' 
+    version = '1.0'  
+}
+
+//configure(subprojects.findAll {it.name != "common"}) {
+  //  println it.name
+//}
+
+subprojects{
+     
+    apply plugin: 'java'    
+    
+     // JVM 鐗堟湰鍙疯姹�
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+     // java缂栬瘧鐨勬椂鍊欑己鐪佺姸鎬佷笅浼氬洜涓轰腑鏂囧瓧绗﹁�屽け璐�
+    [compileJava,compileTestJava,javadoc]*.options*.encoding = 'UTF-8'
+
+}
+
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.14'
+}

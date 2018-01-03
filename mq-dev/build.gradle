@@ -1,0 +1,32 @@
+apply plugin: 'spring-boot' 
+
+
+buildscript {
+    ext {
+         springBootVersion = '1.4.0.RELEASE'
+    }
+    repositories {
+         maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+        //mavenCentral()
+    }
+
+    dependencies {
+            classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+ext {
+         springBootVersion = '1.4.0.RELEASE'
+}
+repositories {
+    	mavenCentral()
+}
+dependencies {
+        compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+        compile("org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1")
+        compile("org.apache.qpid:qpid-jms-client:0.11.1")
+        compile("org.apache.activemq:activemq-core:5.5.0")
+        compile("org.apache.activemq:activemq-pool:5.7.0")
+        
+}
+     

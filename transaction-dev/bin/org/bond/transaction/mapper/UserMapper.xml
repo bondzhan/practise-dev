@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.bond.transaction.mapper.UserMapper">
+	<resultMap id="BaseResultMap" type="org.bond.transaction.model.User">
+		<id column="fuid" jdbcType="INTEGER" property="fuid" />
+		<result column="Fmobile" jdbcType="VARCHAR" property="fmobile" />
+		<result column="Funame" jdbcType="VARCHAR" property="funame" />
+		<result column="Fpasswd" jdbcType="VARCHAR" property="fpasswd" />
+		<result column="Fstatus" jdbcType="INTEGER" property="fstatus" />
+		<result column="Femail" jdbcType="VARCHAR" property="femail" />
+		<result column="Fcreate_time" jdbcType="TIMESTAMP" property="fcreateTime" />
+		<result column="Fmodify_time" jdbcType="TIMESTAMP" property="fmodifyTime" />
+	</resultMap>
+
+	<resultMap id="BaseResultMap2" type="org.bond.transaction.model.Order">
+		<result column="forder_id" jdbcType="VARCHAR" property="forderId" />
+		<result column="Fcreate_time" jdbcType="TIMESTAMP" property="fcreateTime" />
+	</resultMap>
+	
+	<insert id="saveOrder" >
+		insert into t_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="forderId != null">
+				forder_id,
+			</if>
+			<if test="fcreateTime != null">
+				Fcreate_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="forderId != null">
+				#{forderId,jdbcType=VARCHAR},
+			</if>
+			<if test="fcreateTime != null">
+				#{fcreateTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="saveUser" useGeneratedKeys="true" keyProperty="fuid">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fuid != null">
+				fuid,
+			</if>
+			<if test="fmobile != null">
+				fmobile,
+			</if>
+			<if test="fpasswd != null">
+				fpasswd,
+			</if>
+			<if test="fstatus != null">
+				fstatus,
+			</if>
+			<if test="femail != null">
+				femail,
+			</if>
+			<if test="fcreateTime != null">
+				Fcreate_time,
+			</if>
+			<if test="fmodifyTime != null">
+				Fmodify_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fuid != null">
+				#{fuid,jdbcType=INTEGER},
+			</if>
+			<if test="fmobile != null">
+				#{fmobile,jdbcType=INTEGER},
+			</if>
+			<if test="fpasswd != null">
+				#{fpasswd,jdbcType=VARCHAR},
+			</if>
+			<if test="fstatus != null">
+				#{fstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="femail != null">
+				#{femail,jdbcType=VARCHAR},
+			</if>
+			<if test="fcreateTime != null">
+				#{fcreateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="fmodifyTime != null">
+				#{fmodifyTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="saveUserNoReturn">
+		insert into t_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="fuid != null">
+				fuid,
+			</if>
+			<if test="fmobile != null">
+				fmobile,
+			</if>
+			<if test="fpasswd != null">
+				fpasswd,
+			</if>
+			<if test="fstatus != null">
+				fstatus,
+			</if>
+			<if test="femail != null">
+				femail,
+			</if>
+			<if test="fcreateTime != null">
+				Fcreate_time,
+			</if>
+			<if test="fmodifyTime != null">
+				Fmodify_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="fuid != null">
+				#{fuid,jdbcType=INTEGER},
+			</if>
+			<if test="fmobile != null">
+				#{fmobile,jdbcType=INTEGER},
+			</if>
+			<if test="fpasswd != null">
+				#{fpasswd,jdbcType=VARCHAR},
+			</if>
+			<if test="fstatus != null">
+				#{fstatus,jdbcType=VARCHAR},
+			</if>
+			<if test="femail != null">
+				#{femail,jdbcType=VARCHAR},
+			</if>
+			<if test="fcreateTime != null">
+				#{fcreateTime,jdbcType=VARCHAR},
+			</if>
+			<if test="fmodifyTime != null">
+				#{fmodifyTime,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+</mapper>
