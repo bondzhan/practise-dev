@@ -3,20 +3,25 @@ package org.bond.proxy.jdk;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.Collection;
 
 
 public class ProxyMain {
 
 	public static void main(String args[]) throws NoSuchMethodException, SecurityException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		InvocationHandlerImpl proxyInvoke = new InvocationHandlerImpl();
-		 Subject subject = (Subject) proxyInvoke.bind(new SubjectImpl());
-		 System.out.println(subject.getClass().getName());
-		 subject.sayHi("bond");
-
-		proxy2();
-		proxy();
+//		InvocationHandlerImpl proxyInvoke = new InvocationHandlerImpl();
+//		 Subject subject = (Subject) proxyInvoke.bind(new SubjectImpl());
+//		 System.out.println(subject.getClass().getName());
+//		 subject.sayHi("bond");
+//		 subject.hashCode();
+//		 subject.toString();
+//		proxy2();
+//		proxy();
+		proxy3();
 	}
 
 	public static void proxy() {
@@ -36,7 +41,7 @@ public class ProxyMain {
 //		
 //		Class class3 = Proxy.getProxyClass(sub.getClass().getClassLoader(),
 //				 sub.getClass().getInterfaces());
-//		System.out.println(class3.getName());
+//		System.out.println(class3.getName()); 
 		// 通过 Proxy 直接创建动态代理类实例
 		Subject proxy = (Subject) Proxy.newProxyInstance(sub.getClass().getClassLoader(),
 				 sub.getClass().getInterfaces(), handler);
@@ -58,4 +63,26 @@ public class ProxyMain {
 		System.out.println(proxy.getClass().getName());
 		proxy.sayHi("bond");
 	}
+	
+	
+	 //实现框架功能，生成代理只需要传递target目标类，和封装了系统功能的对象MyAdvice  
+    public static void proxy3() {  
+    	ArrayList target = new ArrayList(); //目标类
+    	SubjectImpl sub = new SubjectImpl();
+        Collection proxy = (Collection)Proxy.newProxyInstance(   //生成代理类对象  
+            target.getClass().getClassLoader(),  
+            target.getClass().getInterfaces(),  
+            new InvocationHandler() {  
+                public Object invoke(Object proxy, Method method, Object[] args)  
+                    throws Throwable {  
+                	sub.sayHi(method.getName() + " start"); //切面代码  
+                    Object retVal = method.invoke(target ,args);//调用目标类的方法  
+                	sub.sayHi(method.getName() + " end"); //切面代码  
+                    return retVal;  
+                }  
+            }  
+        );
+        proxy.add("aaa");
+        System.out.println(proxy.toArray()[0]);
+    }  
 }

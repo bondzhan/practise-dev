@@ -1,0 +1,31 @@
+
+
+buildscript {
+    ext{
+    	springframework = '4.3.13.RELEASE'	
+    }
+
+    repositories {
+         maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+        //mavenCentral()
+    }
+
+}
+
+ext {
+         springframeworkVersion = '4.3.13.RELEASE'
+}
+
+repositories {
+   // 	mavenCentral()
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public'}
+}
+
+dependencies {
+	compile project(":dubbo-api-dev")
+    compile("com.alibaba:dubbo:2.6.0")
+	compile("org.springframework:spring-context:${springframeworkVersion}")
+
+
+}
+     

@@ -12,4 +12,20 @@ public class SubjectImpl implements Subject {
 //		throw new ArithmeticException();
 	}
 
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		logger.info(super.hashCode() + "");
+		return super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		logger.info(super.toString());
+		return super.toString();
+	}
+
+	
+	
 }

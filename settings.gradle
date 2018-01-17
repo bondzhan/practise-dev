@@ -21,3 +21,7 @@ include 'mq-dev'
 include 'transaction-dev'
 include 'base-dev'
 include 'batch-dev'
+include 'dubbo-provider-dev'
+include 'dubbo-consumer-dev'
+include 'dubbo-api-dev'
+
