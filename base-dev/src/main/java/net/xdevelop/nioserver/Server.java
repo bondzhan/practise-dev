@@ -47,13 +47,18 @@ public class Server implements Runnable {
             w.start();
         }
 
-        // 创建无阻塞网络套接
+        // 获得一个通道管理器  
         selector = Selector.open();
+        // 获得一个ServerSocket通道  
         sschannel = ServerSocketChannel.open();
+        // 设置通道为非阻塞  
         sschannel.configureBlocking(false);
+        // 将该通道对应的ServerSocket绑定到port端口  
         address = new InetSocketAddress(port);
         ServerSocket ss = sschannel.socket();
         ss.bind(address);
+        //将通道管理器和该通道绑定，并为该通道注册SelectionKey.OP_ACCEPT事件,注册该事件后，  
+        //当该事件到达时，selector.select()会返回，如果该事件没到达selector.select()会一直阻塞。 
         sschannel.register(selector, SelectionKey.OP_ACCEPT);
     }
 
@@ -64,29 +69,33 @@ public class Server implements Runnable {
         while (true) {
             try {
                 int num = 0;
+                //当注册的事件到达时，方法返回；否则,该方法会一直阻塞  
                 num = selector.select();
                 if (num > 0) {
                     Set selectedKeys = selector.selectedKeys();
+                    // 获得selector中选中的项的迭代器，选中的项为注册的事件
+                    System.out.println("################" + selectedKeys.size());
                     Iterator it = selectedKeys.iterator();
                     while (it.hasNext()) {
                         SelectionKey key = (SelectionKey) it.next();
                     	System.out.println("readyOps=" + key.readyOps() + "OP_ACCEPT=" + SelectionKey.OP_ACCEPT  + 
-                    			"OP_ACCEPT=" + SelectionKey.OP_READ + "OP_ACCEPT=" + SelectionKey.OP_WRITE);
+                    			"OP_READ=" + SelectionKey.OP_READ + "OP_WRITE=" + SelectionKey.OP_WRITE);
+                        // 删除已选的key,以防重复处理  
                         it.remove();
-                        // 处理IO事件
+                        // 客户端请求连接事件  
                         if ( (key.readyOps() & SelectionKey.OP_ACCEPT) == SelectionKey.OP_ACCEPT) {
                            // Accept the new connection
                            ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
                            notifier.fireOnAccept();
-
+                           // 获得和客户端连接的通道  
                            SocketChannel sc = ssc.accept();
+                           //设置成非阻塞
                            sc.configureBlocking(false);
-
                            // 触发接受连接事件
                            Request request = new Request(sc);
                            notifier.fireOnAccepted(request);
 
-                           // 注册读操作,以进行下一步的读操作
+                           // 在和客户端连接成功之后, 注册读操作,以进行下一步的读操作
                            sc.register(selector,  SelectionKey.OP_READ, request);
                        }
                        else if ( (key.readyOps() & SelectionKey.OP_READ) == SelectionKey.OP_READ ) {

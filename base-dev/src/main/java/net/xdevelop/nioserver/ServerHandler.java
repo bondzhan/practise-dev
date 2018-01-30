@@ -27,17 +27,17 @@ public class ServerHandler extends EventAdapter {
         //    rspData = new java.util.Date().toString().getBytes();
         //}
         //request.attach(rspData);
-        //System.out.println("#onRead()");
+        System.out.println("#onRead()");
     }
 
     public void onWrite(Request request, Response response) throws Exception {
-        //System.out.println("#onWrite()");
+        System.out.println("#onWrite()");
         //response.send((byte[])request.attachment());
         //response.send("OK".getBytes());
     }
 
     public void onClosed(Request request) throws Exception {
-        //System.out.println("#onClosed()");
+        System.out.println("#onClosed()");
     }
 
     public void onError(String error) {

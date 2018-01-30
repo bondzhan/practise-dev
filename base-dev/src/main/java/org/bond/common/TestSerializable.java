@@ -34,6 +34,20 @@ public class TestSerializable extends TestParent implements Serializable{
 	* @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
 	*/ 
 	public static int staticVar = 5;
+	
+	private String name;
+	
+	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	public static void main(String[] args) {
 		try {
 			TestSerializable  test = new TestSerializable();

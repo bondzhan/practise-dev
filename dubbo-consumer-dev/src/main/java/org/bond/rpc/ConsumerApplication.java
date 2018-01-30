@@ -38,6 +38,9 @@ public class ConsumerApplication {
 	        context.start();
 	        // obtain proxy object for remote invocation
 	        DemoService demoService = (DemoService) context.getBean("demoService");
+	        DemoService demoService2 = (DemoService) context.getBean("demoService");
+	        
+	        System.out.println(demoService ==  demoService2);
 	        // execute remote invocation
 	        String hello = demoService.sayHello("world");
 	        Person person = new Person();
