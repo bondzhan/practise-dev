@@ -1,9 +1,26 @@
 package org.bond.common;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class AliDev {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		AtomicInteger nextServerCyclicCounter = new AtomicInteger(0);
+		System.out.println(2%3);
+        for (;;) {
+        	int current = nextServerCyclicCounter.get();
+        	System.out.println("############# current " + current);
+            int next = (current + 1) % 3;
+        	System.out.println("############# next" + next);
+            if (nextServerCyclicCounter.compareAndSet(current, next))
+                System.out.println(next);
+            	if(next == 2)
+            		break;
+        }
+	}
+	
+	public static void intTest(){
 		Integer i = -129;
 		Integer j = -200;
 		

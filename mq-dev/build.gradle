@@ -23,10 +23,12 @@ repositories {
 }
 dependencies {
         compile("org.springframework.boot:spring-boot-starter:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-amqp:${springBootVersion}")
         compile("org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1")
         compile("org.apache.qpid:qpid-jms-client:0.11.1")
         compile("org.apache.activemq:activemq-core:5.5.0")
         compile("org.apache.activemq:activemq-pool:5.7.0")
+   		compile("com.rabbitmq:amqp-client:5.1.2")	
         
 }
      
